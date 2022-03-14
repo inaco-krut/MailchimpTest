@@ -6,7 +6,7 @@ Feature: textbox
     Given I write random name "<UsrName>"
     Given I write random password "<password>"
     When I click on submit
-    Then I verify the email Address
+    Then I Quit Test
 
     Examples:
       | browser | UsrName | UsrEmail | password |

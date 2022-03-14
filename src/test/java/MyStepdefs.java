@@ -7,10 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.Random;
-
 
 public class MyStepdefs {
 
@@ -22,10 +20,10 @@ public class MyStepdefs {
         driver = choice.createBrowser(browser);
         driver.get("https://login.mailchimp.com/signup/");
 
-        String actualTitle = driver.getTitle();
-        String expectedTitle = "Signup | Mailchimp";
+        String actual = driver.getTitle();
+        String expected = "Signup | Mailchimp";
 
-        Assert.assertEquals(expectedTitle,actualTitle);
+        Assert.assertEquals(expected,actual);
 
     }
 
@@ -53,35 +51,41 @@ public class MyStepdefs {
         clicker(driver, By.id("create-account"));
     }
 
-    @Then("I verify the email Address")
-    public void iVeryTheEmailAddress() {
+    @Then("I Quit Test")
+    public void QuitTest() {
 
-    driver.quit();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.quit();
 
     }
 
     private static void GenerateRandomUsrName(WebDriver driver, By by) {
 
-        WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
         element.sendKeys("GeneratedUserName"+ (new Random().nextInt(10000) + 1));
 
     }
+
     private static void GenerateRandomEmail (WebDriver driver, By by) {
 
-        WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement elements = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement elements = wait.until(ExpectedConditions.presenceOfElementLocated(by));
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(10000);
         elements.sendKeys("RandomEmail" + randomInt + "@gmail.com");
-
 
     }
 
     private static void GenerateRandomPassword(WebDriver driver, By by) {
 
-        WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(10000);
         element.sendKeys("Hunter$$" + randomInt);
