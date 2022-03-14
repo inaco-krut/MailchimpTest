@@ -1,17 +1,13 @@
 Feature: textbox
 
-  Scenario Outline: add Simple information
-    Given I have started "<browser>" browser
-    Given I have written my name "<name>"
-    Given I have written my email "<email>"
-    Given I have written my current address "<current>"
-    Given I have written my permanent address "<permanent>"
+  Scenario Outline: Create a user
+    Given I have started browser "<browser>"
+    Given I write random email "<UsrEmail>"
+    Given I write random name "<UsrName>"
+    Given I write random password "<password>"
     When I click on submit
-    Then my contact information is displayed
+    Then I verify the email Address
 
     Examples:
-      |browser|name|email|current|permanent|
-      |edge|Fredrik|fredrik@hotmail.com|Goteborg|Jorden|
-      |chrome|Johan|Johan@hotmail.com|Stockholm|Mars|
-      |edge|Lars|Lasse@hotmail.com|Harjunga|Jupiter|
-      |chrome|Nisse|NisseOlsson@hotmail.com|Partille|Venus|
+      | browser | UsrName | UsrEmail | password |
+      | chrome    |  |  |  |

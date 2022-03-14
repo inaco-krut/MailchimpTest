@@ -8,7 +8,6 @@ public class DriveCreator {
         WebDriver driver;
 
         if (browser.equals("edge")) {
-
             System.setProperty("webdriver.edge.driver", "/Users/inaco/Documents/Selenium/msedgedriver");
             driver = new EdgeDriver();
 
@@ -17,8 +16,6 @@ public class DriveCreator {
             driver = new ChromeDriver();
 
         }
-
         return driver;
-
     }
 }

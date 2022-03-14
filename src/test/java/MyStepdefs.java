@@ -1,83 +1,97 @@
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
+import java.util.Random;
+
 
 public class MyStepdefs {
 
-
-    private String myName, myEmail, myPermanent, myCurrent, myBrowser;
     private WebDriver driver;
 
-    @Given("I have started {string} browser")
+    @Given("I have started browser {string}")
     public void iHaveStartedBrowser(String browser) {
-
-
         DriveCreator choice = new DriveCreator();
-        myBrowser = browser;
         driver = choice.createBrowser(browser);
-        driver.get("https://demoqa.com/text-box");
+        driver.get("https://login.mailchimp.com/signup/");
+
+        String actualTitle = driver.getTitle();
+        String expectedTitle = "Signup | Mailchimp";
+
+        Assert.assertEquals(expectedTitle,actualTitle);
 
     }
 
-    @Given("I have written my name {string}")
-    public void iHaveWrittenMyName(String name) {
-
-        myName = name;
-        typer(driver,By.id("userName"), name);
-
-    }
-
-    @Given("I have written my email {string}")
+    @Given("I write random email {string}")
     public void iHaveWrittenMyEmail(String email) {
 
-        myEmail = email;
-        typer(driver, By.id("userEmail"),email);
+        GenerateRandomEmail(driver, By.id("email"));
 
     }
+    @Given("I write random name {string}")
+    public void iHaveWrittenMyName(String name) {
 
-    @Given("I have written my current address {string}")
-    public void iHaveWrittenMyCurrentAddress(String current) {
-
-
-        myCurrent = current;
-        typer(driver, By.id("currentAddress"),current);
-
+        GenerateRandomUsrName(driver, By.id("new_username"));
 
     }
+    @Given("I write random password {string}")
+    public void iHaveWrittenRandomPassword(String password) {
 
-    @Given("I have written my permanent address {string}")
-    public void iHaveWrittenMyPermanentAddress(String permanent) {
-
-        myPermanent = permanent;
-        typer(driver, By.id("permanentAddress"),permanent);
+        GenerateRandomPassword(driver,By.id("new_password"));
 
     }
-
     @When("I click on submit")
     public void iClickOnSubmit() {
 
+        clicker(driver, By.id("create-account"));
+    }
 
+    @Then("I verify the email Address")
+    public void iVeryTheEmailAddress() {
+
+    driver.quit();
 
     }
 
-    @Then("my contact information is displayed")
-    public void myContactInformationIsDisplayed() {
-
-
-    }
-
-    private static void typer(WebDriver driver, By by, String text) {
+    private static void GenerateRandomUsrName(WebDriver driver, By by) {
 
         WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
-        element.sendKeys(text);
+        element.sendKeys("GeneratedUserName"+ (new Random().nextInt(10000) + 1));
+
+    }
+    private static void GenerateRandomEmail (WebDriver driver, By by) {
+
+        WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement elements = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(10000);
+        elements.sendKeys("RandomEmail" + randomInt + "@gmail.com");
+
+
     }
 
+    private static void GenerateRandomPassword(WebDriver driver, By by) {
+
+        WebDriverWait foobar = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = foobar.until(ExpectedConditions.presenceOfElementLocated(by));
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(10000);
+        element.sendKeys("Hunter$$" + randomInt);
+
+    }
+
+    private static void clicker(WebDriver driver, By by) {
+
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
+        driver.findElement(by).click();
+
+    }
 }
