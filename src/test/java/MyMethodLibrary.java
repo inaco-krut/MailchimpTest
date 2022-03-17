@@ -31,6 +31,54 @@
 
 }
 
+public class DriveCreator {
+    public WebDriver createBrowser (String browser) {
+
+        WebDriver driver;
+
+        if (browser.equals("edge")) {
+            System.setProperty("webdriver.edge.driver", "/Users/inaco/Documents/Selenium/msedgedriver");
+            driver = new EdgeDriver();
+
+        } else {
+            System.setProperty("webdriver.chrome.driver", "/Users/inaco/Documents/Selenium/chromedriver");
+            driver = new ChromeDriver();
+
+        }
+        return driver;
+    }
+
+    }
+
+    private static void generateRandomUsrName(WebDriver driver, By by) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        element.sendKeys("randomUserName"+ (new Random().nextInt(100000) + 1));
+
+    }
+
+    private static void generateRandomEmail(WebDriver driver, By by) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement elements = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(100000);
+        elements.sendKeys("randomEmail" + randomInt + "@gmail.com");
+
+    }
+
+    private static void generateRandomPassword(WebDriver driver, By by) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(100000);
+        element.sendKeys("Hunter$$" + randomInt);
+
+    }
+
+
 */
 
 /*
@@ -42,9 +90,9 @@
                 typer(driver,By.id("userNumber"), "07255665543");
 
                 //Klickar på knappar
-                clicker(driver, By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/form/div[3]/div[2]/div[1]/label"));
-                clicker(driver, By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/form/div[7]/div[2]/div[3]/label"));
-                clicker(driver, By.id("submit"));
+                clicker(driver, By.xpath(""));
+                clicker(driver, By.id(""));
+                clicker(driver, By.tagName(""));
 
                 //"väljer" ett alternativ
                 selector(driver,"red");
@@ -54,4 +102,10 @@
 
                 //hämtar text kopplat till element - "id"
                 getTextFromId(driver,"app");
+
+                 //genrera random uppgifter
+                 generateRandomEmail(driver, By.id("email"));
+                 generateRandomUsrName(driver, By.id("new_username"));
+                 generateRandomPassword(driver,By.id("new_password"));
+
  */

@@ -10,4 +10,10 @@ Feature: textbox
 
     Examples:
       | browser | UsrName | UsrEmail | password |
-      | chrome    |  |  |  |
+      | edge    | randomName | fredrik@mail.com | Qwerty@123 |
+      | edge    | randomUsed | fredrik@mail.com | Qwerty@123 |
+      | edge    | randomManyChars | fredrik@mail.com | Qwerty@123 |
+      | edge    | userNameMissingEmail |  | Qwerty@123 |
+
+
+
