@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
 import java.time.Duration;
 import java.util.Random;
 
@@ -24,8 +26,9 @@ public class MyStepdefs {
     @Given("I write random email {string}")
     public void iHaveWrittenMyEmail(String email) {
 
-        if (email.equals("")) {
-
+        String expected = "";
+        if (email.equals(expected)) {
+            assertEquals(expected,"");
 
         }else
 
@@ -35,18 +38,19 @@ public class MyStepdefs {
     @Given("I write random name {string}")
     public void iHaveWrittenMyName(String name) {
 
-
         if (name.equals("randomName"))  {
 
             generateRandomUsrName(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
+
         }
         
         if (name.equals("randomUsed")) {
 
             generateRandomUsrName(driver, By.id("new_username"), "fredrik123");
+
         }
 
-        if (name.equals("randomManyChars"))  {
+        if (name.equals("ManyChars"))  {
 
             generateRandomUsrName(driver, By.id("new_username"), name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte");
         }
@@ -60,6 +64,9 @@ public class MyStepdefs {
     public void iHaveWrittenRandomPassword(String password) {
 
         generateRandomPassword(driver,By.id("new_password"));
+        String expected;
+        expected = password;
+        assertEquals(expected,"Qwerty@123");
 
     }
 
@@ -67,6 +74,7 @@ public class MyStepdefs {
     public void iClickOnSubmit() {
 
         clicker(driver, By.id("create-account"));
+
     }
 
     @Then("I Quit Test")
