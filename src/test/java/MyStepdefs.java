@@ -21,18 +21,23 @@ public class MyStepdefs {
         driver = choice.createBrowser(browser);
         driver.get("https://login.mailchimp.com/signup/");
 
+        String actual = driver.getTitle();
+        assertEquals("Signup | Mailchimp",actual);
+
+
     }
 
     @Given("I write random email {string}")
     public void iHaveWrittenMyEmail(String email) {
 
-        String expected = "";
-        if (email.equals(expected)) {
-            assertEquals(expected,"");
+        String actual = "";
+        if (email.equals(actual)) {
+            assertEquals("",actual);
+
 
         }else
 
-            generateRandomEmail(driver, By.id("email"));
+            generateRandomEmail(driver, By.id("email"), email + (new Random().nextInt(1000000))+ "@email.com");
 
     }
     @Given("I write random name {string}")
@@ -40,40 +45,60 @@ public class MyStepdefs {
 
         if (name.equals("randomName"))  {
 
-            generateRandomUsrName(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
+            Random randomGenerator = new Random();
+            int randomInt = randomGenerator.nextInt(100000);
+            generateRandomUsrName(driver, By.id("new_username"), name + randomInt);
+
+            String actual = name+randomInt;
+
+            assertEquals(name+randomInt,actual);
 
         }
         
         if (name.equals("randomUsed")) {
 
-            generateRandomUsrName(driver, By.id("new_username"), "fredrik123");
+            String actual = "fredrik123";
+            generateRandomUsrName(driver, By.id("new_username"), actual);
+            assertEquals("fredrik123",actual);
+
 
         }
 
         if (name.equals("ManyChars"))  {
 
-            generateRandomUsrName(driver, By.id("new_username"), name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte");
+            String longName = name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte";
+            generateRandomUsrName(driver, By.id("new_username"), longName);
+
+            assertEquals(longName,name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte");
+
         }
+
+
         if (name.equals("userNameMissingEmail"))  {
 
+
             generateRandomUsrName(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
+
+
+
         }
 
     }
+
     @Given("I write random password {string}")
     public void iHaveWrittenRandomPassword(String password) {
 
         generateRandomPassword(driver,By.id("new_password"));
-        String expected;
-        expected = password;
-        assertEquals(expected,"Qwerty@123");
+
 
     }
 
     @When("I click on submit")
     public void iClickOnSubmit() {
 
+
         clicker(driver, By.id("create-account"));
+
 
     }
 
@@ -82,7 +107,7 @@ public class MyStepdefs {
 
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,13 +124,11 @@ public class MyStepdefs {
 
     }
 
-    private static void generateRandomEmail(WebDriver driver, By by) {
+    private static void generateRandomEmail(WebDriver driver, By by, String email) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elements = wait.until(ExpectedConditions.presenceOfElementLocated(by));
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(100000);
-        elements.sendKeys("randomEmail" + randomInt + "@gmail.com");
+        elements.sendKeys(email);
 
     }
 

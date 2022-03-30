@@ -10,9 +10,9 @@ Feature: textbox
 
     Examples:
       | browser | userName             | email            | password   |
-      | chrome  | randomName           | random@mail.com  | Qwerty@123 |
-      | edge    | randomUsed           | fredrik@mail.com | Qwerty@123 |
-      | chrome  | ManyChars            | fredrik@mail.com | Qwerty@123 |
+      | chrome  | randomName           | random           | Qwerty@123 |
+      | edge    | ManyChars            | random           | Qwerty@123 |
+      | chrome  | randomUsed           | random           | Qwerty@123 |
       | edge    | userNameMissingEmail |                  | Qwerty@123 |
 
 
