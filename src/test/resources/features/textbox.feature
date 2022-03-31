@@ -11,9 +11,9 @@ Feature: textbox
     Examples:
       | browser | userName             | email            | password   |
       | chrome  | randomName           | random           | Hunter$$ |
-      | edge    | ManyChars            | random           | Hunter$$ |
+      | edge    | manyChars            | random           | Hunter$$ |
       | chrome  | randomUsed           | random           | Hunter$$ |
-      | edge    | MissingEmail         |                  | Hunter$$ |
+      | edge    | missingEmail         |                  | Hunter$$ |
 
 
 
