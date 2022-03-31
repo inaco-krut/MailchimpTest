@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 import java.time.Duration;
 import java.util.Random;
@@ -24,23 +23,23 @@ public class MyStepdefs {
         String actual = driver.getTitle();
         assertEquals("Signup | Mailchimp",actual);
 
-
     }
 
     @Given("I write random email {string}")
     public void iHaveWrittenMyEmail(String email) {
 
-        String actual = "";
-        if (email.equals(actual)) {
-            assertEquals("",actual);
+        if (email.equals("")) {
 
+            String actual = email;
+            assertEquals("",actual);
 
         }else
 
             generateRandomEmail(driver, By.id("email"), email + (new Random().nextInt(1000000))+ "@email.com");
 
     }
-    @Given("I write random name {string}")
+
+    @Given("I write a name {string}")
     public void iHaveWrittenMyName(String name) {
 
         if (name.equals("randomName"))  {
@@ -50,7 +49,6 @@ public class MyStepdefs {
             generateRandomUsrName(driver, By.id("new_username"), name + randomInt);
 
             String actual = name+randomInt;
-
             assertEquals(name+randomInt,actual);
 
         }
@@ -68,7 +66,6 @@ public class MyStepdefs {
 
             String longName = name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte";
             generateRandomUsrName(driver, By.id("new_username"), longName);
-
             assertEquals(longName,name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte");
 
         }
@@ -76,16 +73,12 @@ public class MyStepdefs {
 
         if (name.equals("userNameMissingEmail"))  {
 
-
             generateRandomUsrName(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
 
-
-
         }
-
     }
 
-    @Given("I write random password {string}")
+    @Given("I write a password {string}")
     public void iHaveWrittenRandomPassword(String password) {
 
         generateRandomPassword(driver,By.id("new_password"));
@@ -96,9 +89,7 @@ public class MyStepdefs {
     @When("I click on submit")
     public void iClickOnSubmit() {
 
-
         clicker(driver, By.id("create-account"));
-
 
     }
 
