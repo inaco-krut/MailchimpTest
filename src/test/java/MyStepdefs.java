@@ -34,9 +34,7 @@ public class MyStepdefs {
             assertEquals("",actual);
 
         }else
-
-            generateRandomEmail(driver, By.id("email"), email + (new Random().nextInt(1000000))+ "@email.com");
-
+            typer(driver, By.id("email"), email + (new Random().nextInt(1000000))+ "@email.com");
     }
 
     @Given("I write a name {string}")
@@ -46,98 +44,59 @@ public class MyStepdefs {
 
             Random randomGenerator = new Random();
             int randomInt = randomGenerator.nextInt(100000);
-            generateRandomUsrName(driver, By.id("new_username"), name + randomInt);
+            typer(driver, By.id("new_username"), name + randomInt);
 
             String actual = name+randomInt;
             assertEquals(name+randomInt,actual);
-
         }
         
         if (name.equals("randomUsed")) {
 
-            String actual = "fredrik123";
-            generateRandomUsrName(driver, By.id("new_username"), actual);
-            assertEquals("fredrik123",actual);
-
+            typer(driver, By.id("new_username"), "fredrik123");
 
         }
 
         if (name.equals("ManyChars"))  {
 
-            String longName = name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte";
-            generateRandomUsrName(driver, By.id("new_username"), longName);
-            assertEquals(longName,name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttestte");
-
+            typer(driver, By.id("new_username"), name+"testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttest");
         }
 
+        if (name.equals("MissingEmail"))  {
 
-        if (name.equals("userNameMissingEmail"))  {
-
-            generateRandomUsrName(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
-
+            typer(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
         }
     }
 
     @Given("I write a password {string}")
     public void iHaveWrittenRandomPassword(String password) {
 
-        generateRandomPassword(driver,By.id("new_password"));
-
-
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(100000);
+        typer(driver,By.id("new_password"),password+randomInt);
     }
 
     @When("I click on submit")
     public void iClickOnSubmit() {
 
         clicker(driver, By.id("create-account"));
-
     }
 
     @Then("I Quit Test")
     public void quitTest() {
 
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         driver.close();
-
     }
 
-    private static void generateRandomUsrName(WebDriver driver, By by, String name) {
+    private static void typer(WebDriver driver, By by, String s) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
-        element.sendKeys(name);
-
-    }
-
-    private static void generateRandomEmail(WebDriver driver, By by, String email) {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement elements = wait.until(ExpectedConditions.presenceOfElementLocated(by));
-        elements.sendKeys(email);
-
-    }
-
-    private static void generateRandomPassword(WebDriver driver, By by) {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(100000);
-        element.sendKeys("Hunter$$" + randomInt);
-
+        element.sendKeys(s);
     }
 
     private static void clicker(WebDriver driver, By by) {
 
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
         driver.findElement(by).click();
-
     }
-
 }

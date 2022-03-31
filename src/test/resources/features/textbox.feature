@@ -10,10 +10,10 @@ Feature: textbox
 
     Examples:
       | browser | userName             | email            | password   |
-      | chrome  | randomName           | random           | random |
-      | edge    | ManyChars            | random           | random |
-      | chrome  | randomUsed           | random           | random |
-      | edge    | userNameMissingEmail |                  | random |
+      | chrome  | randomName           | random           | Hunter$$ |
+      | edge    | ManyChars            | random           | Hunter$$ |
+      | chrome  | randomUsed           | random           | Hunter$$ |
+      | edge    | MissingEmail         |                  | Hunter$$ |
 
 
 
