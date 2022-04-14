@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.time.Duration;
 import java.util.Random;
 
@@ -39,24 +41,23 @@ public class MyStepdefs {
     public void writeName(String name) {
 
         switch (name) {
-            case "randomName" -> {
+            case "randomName":
                 Random randomGenerator = new Random();
                 int randomInt = randomGenerator.nextInt(100000);
                 typer(driver, By.id("new_username"), name + randomInt);
-                assertEquals("randomName", name);
-            }
-            case "randomUsed" -> {
+                break;
+
+            case "randomUsed":
                 typer(driver, By.id("new_username"), "fredrik123");
-                assertEquals("randomUsed", name);
-            }
-            case "manyChars" -> {
+                break;
+
+            case "manyChars":
                 typer(driver, By.id("new_username"), name + "testtesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttetesttesttest");
-                assertEquals("manyChars", name);
-            }
-            case "missingEmail" -> {
+                break;
+
+            case "missingEmail":
                 typer(driver, By.id("new_username"), name + (new Random().nextInt(100000) + 1));
-                assertEquals("missingEmail", name);
-            }
+                break;
         }
     }
 
@@ -91,5 +92,35 @@ public class MyStepdefs {
 
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
         driver.findElement(by).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Given("I check asserts {string}")
+    public void iCheckAssert(String text) {
+
+        switch (text) {
+
+            case "checkEmail":
+                assertTrue(driver.getPageSource().contains("Check your email"));
+                break;
+
+            case "longText":
+                assertTrue(driver.getPageSource().contains("Enter a value less than 100 characters long"));
+                break;
+
+            case "textUsed":
+                assertTrue(driver.getPageSource().contains("Another user with this username already exists. Maybe it's your evil twin. Spooky."));
+                break;
+
+            case "textMissing":
+                assertTrue(driver.getPageSource().contains("Please enter a value"));
+                break;
+        }
     }
 }

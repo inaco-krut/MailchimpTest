@@ -6,14 +6,15 @@ Feature: textbox
     Given I write a name "<userName>"
     Given I write a password "<password>"
     When I click on submit
+    Given I check asserts "<asserts>"
     Then I Quit Test
 
     Examples:
-      | browser | userName             | email            | password   |
-      | chrome  | randomName           | random           | Hunter$$ |
-      | edge    | manyChars            | random           | Hunter$$ |
-      | chrome  | randomUsed           | random           | Hunter$$ |
-      | edge    | missingEmail         |                  | Hunter$$ |
+      | browser | userName             | email            | password   |  asserts |
+      | chrome  | randomName           | random           | Hunter$$ |  checkEmail |
+      | edge    | manyChars            | random           | Hunter$$ |  longText |
+      | chrome  | randomUsed           | random           | Hunter$$ |  textUsed |
+      | edge    | missingEmail         |                  | Hunter$$ |  textMissing |
 
 
 
