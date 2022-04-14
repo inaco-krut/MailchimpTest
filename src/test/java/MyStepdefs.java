@@ -86,18 +86,13 @@ public class MyStepdefs {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
         element.sendKeys(s);
+
     }
 
     private static void clicker(WebDriver driver, By by) {
 
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
         driver.findElement(by).click();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 
