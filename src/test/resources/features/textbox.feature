@@ -6,7 +6,7 @@ Feature: textbox
     Given I write a name "<userName>"
     Given I write a password "<password>"
     When I click on submit
-    Given I check asserts "<asserts>"
+    And I check asserts "<asserts>"
     Then I Quit Test
 
     Examples:

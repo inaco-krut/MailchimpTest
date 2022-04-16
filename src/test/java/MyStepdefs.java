@@ -1,3 +1,4 @@
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -75,28 +76,7 @@ public class MyStepdefs {
         clicker(driver, By.id("create-account"));
     }
 
-    @Then("I Quit Test")
-    public void quitTest() {
-
-        driver.close();
-    }
-
-    private static void typer(WebDriver driver, By by, String s) {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
-        element.sendKeys(s);
-
-    }
-
-    private static void clicker(WebDriver driver, By by) {
-
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
-        driver.findElement(by).click();
-
-    }
-
-    @Given("I check asserts {string}")
+    @And("I check asserts {string}")
     public void iCheckAssert(String text) {
 
         switch (text) {
@@ -117,5 +97,26 @@ public class MyStepdefs {
                 assertTrue(driver.getPageSource().contains("Please enter a value"));
                 break;
         }
+    }
+
+    @Then("I Quit Test")
+    public void quitTest() {
+
+        driver.close();
+    }
+
+    private static void typer(WebDriver driver, By by, String s) {
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+        element.sendKeys(s);
+
+    }
+
+    private static void clicker(WebDriver driver, By by) {
+
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
+        driver.findElement(by).click();
+
     }
 }
